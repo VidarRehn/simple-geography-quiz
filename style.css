@@ -1,8 +1,33 @@
 
+body {
+    font-family:'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+}
+
 .hide {
     display: none;
 }
 
 input {
     margin-right: 40px;
+    margin-bottom: 40px;
+}
+
+#question-txt {
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+#container {
+    margin: 100px auto;
+    width: 60%;
+    max-width: 500px;
+    padding: 15px;
+    border: 2px solid black;
+}
+
+#start-btn, #results-btn {
+    width: 250px;
+    height: 100px;
+    font-size: 40px;
 }

@@ -9,8 +9,9 @@
 </head>
 <body>
     <h1>Geography Quiz</h1>
+    <button id="dark-light-btn">Change mode</button><br>
     <a href="https://docs.google.com/document/d/1rRcZbVXIWw3nCW0qqLmWZR9o24DoTN1wcbgkC1dsau4/edit">Länk till uppgift</a>
-    <div class="container">
+    <div id="container">
         <div id="question-container" class="hide">
             <div id="question-txt">Questions to ask</div>
             <div id="answers-container">
@@ -20,11 +21,17 @@
                 <input type="radio" name="option" id="answer-2">
                 <label for="" id="label-3"> Answer 3</label>
                 <input type="radio" name="option" id="answer-3">
-                <button id="next-btn">Next Question</button>
+                <div>
+                    <button id="next-btn">Next Question</button>
+                    <p id="error-msg"></p>
+                </div>
             </div>
         </div>
-        <div class="controls">
+        <div>
             <button id="start-btn">Start</button>
+        </div>
+        <div>
+            <button id="results-btn" class="hide">Check Results</button>
         </div>
     </div>
 

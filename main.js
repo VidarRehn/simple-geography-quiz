@@ -1,5 +1,5 @@
 
-// My quiz-questions
+// My quiz-questions and answers
 
 const geographyQuestions = [{
     question: "What is the capital of Ghana?",
@@ -8,7 +8,7 @@ const geographyQuestions = [{
         b: "Accra",
         c: "Dakar"
     },
-    correctAnswer: "b"
+    correctAnswer: "Accra"
 },{
     question: "In which continent can you find Armenia?",
     answers: {
@@ -16,7 +16,7 @@ const geographyQuestions = [{
         b: "Africa",
         c: "Asia"
     },
-    correctAnswer: "c"
+    correctAnswer: "Asia"
 },{
     question: "Madagascar is surrounded by which Ocean?",
     answers: {
@@ -24,7 +24,7 @@ const geographyQuestions = [{
         b: "Atlantic",
         c: "Indian"
     },
-    correctAnswer: "c"
+    correctAnswer: "Indian"
 },{
     question: "Which of these belong to the United Kingdom?",
     answers: {
@@ -32,7 +32,7 @@ const geographyQuestions = [{
         b: "Ireland",
         c: "Wales"
     },
-    correctAnswer: "a" && "c"
+    correctAnswer: "Wales"
 },{
     question: "What is the second largest country in South America?",
     answers: {
@@ -40,7 +40,7 @@ const geographyQuestions = [{
         b: "Colombia",
         c: "Brazil"
     },
-    correctAnswer: "a"
+    correctAnswer: "Argentina"
 },{
     question: "Which country was previously know as Siam?",
     answers: {
@@ -48,7 +48,7 @@ const geographyQuestions = [{
         b: "Thailand",
         c: "Cambodia"
     },
-    correctAnswer: "b"
+    correctAnswer: "Thailand"
 },{
     question: "Which country does the Madeira-islands belong to?",
     answers: {
@@ -56,23 +56,23 @@ const geographyQuestions = [{
         b: "Ecuador",
         c: "Spain"
     },
-    correctAnswer: "a"
+    correctAnswer: "Portugal"
 },{
-    question: "Which is the largest free-standing mountain in the World",
+    question: "Which is the largest free-standing mountain in the World?",
     answers: {
         a: "Mt. Everest",
         b: "K2",
         c: "Kilimanjaro"
     },
-    correctAnswer: "c"
+    correctAnswer: "Kilimanjaro"
 },{
-    question: "What is the official language of Austria",
+    question: "What is the official language of Austria?",
     answers: {
         a: "German",
         b: "Austrian",
         c: "French"
     },
-    correctAnswer: "a"
+    correctAnswer: "German"
 },{
     question: "Which of the below are states in the Unites States?",
     answers: {
@@ -80,10 +80,15 @@ const geographyQuestions = [{
         b: "Puerto Rico",
         c: "Hawaii"
     },
-    correctAnswer: "a" && "c"
+    correctAnswer: "Hawaii"
 }];
 
-// Declaring variables from DOM
+// Declaring variables from DOM0
+
+let myBody = document.querySelector("body");
+
+myBody.style.background = "white";
+myBody.style.color = "black";
 
 let questionContainer = document.querySelector("#question-container");
 let questionText = document.querySelector("#question-txt");
@@ -99,7 +104,10 @@ let answerThree = document.querySelector("#answer-3");
 
 let startButton = document.querySelector("#start-btn");
 let nextButton = document.querySelector("#next-btn");
+let checkResultsButton = document.querySelector("#results-btn");
+let darkLightButton = document.querySelector("#dark-light-btn");
 
+let errorMessage = document.querySelector("#error-msg");
 let answersArray = [];
 let questionCounter = 0;
 
@@ -120,23 +128,46 @@ function startGame(){
 function nextQuestion (){
 
     if (answerOne.checked == false && answerTwo.checked == false && answerThree.checked == false){
-        alert("Please answer the question");
+
+        errorMessage.innerText = "Please answer the question";
+        errorMessage.style.color = "red";
+
     } else {
-        [answerOne, answerTwo, answerThree].forEach((answer) =>{
-            if (answer.checked == true){
-                answersArray.push(answer.value);
-                answer.checked = false;
-            }
-        })
-    
-        questionCounter++;
-        questionText.innerText = geographyQuestions[questionCounter].question; 
-        labelOne.innerText = geographyQuestions[questionCounter].answers.a;
-        answerOne.value = geographyQuestions[questionCounter].answers.a;
-        labelTwo.innerText = geographyQuestions[questionCounter].answers.b;
-        answerTwo.value = geographyQuestions[questionCounter].answers.b;
-        labelThree.innerText = geographyQuestions[questionCounter].answers.c;
-        answerThree.value = geographyQuestions[questionCounter].answers.c;
+
+        errorMessage.innerText = "";
+
+        if (questionCounter == (geographyQuestions.length -1)){
+
+            [answerOne, answerTwo, answerThree].forEach((answer) =>{
+                if (answer.checked == true){
+                    answersArray.push(answer.value);
+                    answer.checked = false;
+                }
+            })
+
+            questionContainer.classList.add("hide");
+            checkResultsButton.classList.remove("hide");
+            console.log(answersArray);
+
+        } else {
+
+            [answerOne, answerTwo, answerThree].forEach((answer) =>{
+                if (answer.checked == true){
+                    answersArray.push(answer.value);
+                    answer.checked = false;
+                }
+            })
+        
+            questionCounter++;
+            questionText.innerText = geographyQuestions[questionCounter].question; 
+            labelOne.innerText = geographyQuestions[questionCounter].answers.a;
+            answerOne.value = geographyQuestions[questionCounter].answers.a;
+            labelTwo.innerText = geographyQuestions[questionCounter].answers.b;
+            answerTwo.value = geographyQuestions[questionCounter].answers.b;
+            labelThree.innerText = geographyQuestions[questionCounter].answers.c;
+            answerThree.value = geographyQuestions[questionCounter].answers.c;
+            console.log(answersArray);
+        }
     }
 }
 
@@ -144,7 +175,19 @@ function checkResults(){
 
 }
 
+function changeMode(){
+
+        if (myBody.style.background === "white"){
+            myBody.style.background = "black";
+            myBody.style.color = "white";
+        } else {
+            myBody.style.background = "white";
+            myBody.style.color = "black";
+        }
+}
+
 // Adding Event Listeners
 
 startButton.addEventListener("click", startGame);
 nextButton.addEventListener("click", nextQuestion);
+darkLightButton.addEventListener("click", changeMode);
