@@ -9,8 +9,12 @@ body {
 }
 
 input {
-    margin-right: 40px;
+    margin-right: 25px;
     margin-bottom: 40px;
+}
+
+label {
+    font-size: 18px;
 }
 
 #question-txt {
@@ -20,10 +24,11 @@ input {
 
 #container {
     margin: 100px auto;
+    height: 220px;
     width: 60%;
-    max-width: 500px;
-    padding: 15px;
-    border: 2px solid black;
+    max-width: 550px;
+    padding: 50px;
+    box-shadow: 7px 7px 20px 2px;
 }
 
 #start-btn, #results-btn {

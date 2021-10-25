@@ -8,7 +8,8 @@ const geographyQuestions = [{
         b: "Accra",
         c: "Dakar"
     },
-    correctAnswer: "Accra"
+    type: "radio",
+    correctAnswer: ["Accra"]
 },{
     question: "In which continent can you find Armenia?",
     answers: {
@@ -16,7 +17,8 @@ const geographyQuestions = [{
         b: "Africa",
         c: "Asia"
     },
-    correctAnswer: "Asia"
+    type: "radio",
+    correctAnswer: ["Asia"]
 },{
     question: "Madagascar is surrounded by which Ocean?",
     answers: {
@@ -24,15 +26,18 @@ const geographyQuestions = [{
         b: "Atlantic",
         c: "Indian"
     },
-    correctAnswer: "Indian"
+    type: "radio",
+    correctAnswer: ["Indian"]
 },{
     question: "Which of these belong to the United Kingdom?",
     answers: {
         a: "Scotland",
         b: "Ireland",
-        c: "Wales"
+        c: "Wales",
+        d: "Northern Ireland"
     },
-    correctAnswer: "Wales"
+    type: "checkbox",
+    correctAnswer: ["Scotland", "Wales", "Northern Ireland"]
 },{
     question: "What is the second largest country in South America?",
     answers: {
@@ -40,7 +45,8 @@ const geographyQuestions = [{
         b: "Colombia",
         c: "Brazil"
     },
-    correctAnswer: "Argentina"
+    type: "radio",
+    correctAnswer: ["Argentina"]
 },{
     question: "Which country was previously know as Siam?",
     answers: {
@@ -48,7 +54,8 @@ const geographyQuestions = [{
         b: "Thailand",
         c: "Cambodia"
     },
-    correctAnswer: "Thailand"
+    type: "radio",
+    correctAnswer: ["Thailand"]
 },{
     question: "Which country does the Madeira-islands belong to?",
     answers: {
@@ -56,7 +63,8 @@ const geographyQuestions = [{
         b: "Ecuador",
         c: "Spain"
     },
-    correctAnswer: "Portugal"
+    type: "radio",
+    correctAnswer: ["Portugal"]
 },{
     question: "Which is the largest free-standing mountain in the World?",
     answers: {
@@ -64,7 +72,8 @@ const geographyQuestions = [{
         b: "K2",
         c: "Kilimanjaro"
     },
-    correctAnswer: "Kilimanjaro"
+    type: "radio",
+    correctAnswer: ["Kilimanjaro"]
 },{
     question: "What is the official language of Austria?",
     answers: {
@@ -72,35 +81,54 @@ const geographyQuestions = [{
         b: "Austrian",
         c: "French"
     },
-    correctAnswer: "German"
+    type: "radio",
+    correctAnswer: ["German"]
 },{
     question: "Which of the below are states in the Unites States?",
     answers: {
         a: "Wyoming",
         b: "Puerto Rico",
-        c: "Hawaii"
+        c: "Hawaii",
+        d: "Alberta"
     },
-    correctAnswer: "Hawaii"
+    type: "checkbox",
+    correctAnswer: ["Wyoming", "Hawaii"]
 }];
 
-// Declaring variables from DOM0
+let correctAnswers = [];
+geographyQuestions.forEach((q) => {
+    correctAnswers.push(q.correctAnswer);
+})
+
+console.log(correctAnswers);
+
+// Declaring variables from DOM
 
 let myBody = document.querySelector("body");
-
 myBody.style.background = "white";
 myBody.style.color = "black";
 
 let questionContainer = document.querySelector("#question-container");
 let questionText = document.querySelector("#question-txt");
 let answersContainer = document.querySelector("#answers-container");
+let checkboxContainer = document.querySelector("#checkboxes");
+let radiosContainer = document.querySelector("#radios");
 
 let labelOne = document.querySelector("#label-1");
 let labelTwo = document.querySelector("#label-2");
 let labelThree = document.querySelector("#label-3");
+let labelFour = document.querySelector("#label-4");
+let labelFive = document.querySelector("#label-5");
+let labelSix = document.querySelector("#label-6");
+let labelSeven = document.querySelector("#label-7");
 
 let answerOne = document.querySelector("#answer-1");
 let answerTwo = document.querySelector("#answer-2");
 let answerThree = document.querySelector("#answer-3");
+let answerFour = document.querySelector("#answer-4");
+let answerFive = document.querySelector("#answer-5");
+let answerSix = document.querySelector("#answer-6");
+let answerSeven = document.querySelector("#answer-7");
 
 let startButton = document.querySelector("#start-btn");
 let nextButton = document.querySelector("#next-btn");
@@ -110,12 +138,23 @@ let darkLightButton = document.querySelector("#dark-light-btn");
 let errorMessage = document.querySelector("#error-msg");
 let answersArray = [];
 let questionCounter = 0;
+let scoreContainer = document.querySelector("#score");
 
 // Declaring functions needed
 
 function startGame(){
     startButton.classList.add("hide");
     questionContainer.classList.remove("hide");
+    if (geographyQuestions[questionCounter].type == "radio"){
+        showRadioQuestion();
+    } else {
+        showCheckBoxQuestion();
+    }
+}
+
+function showRadioQuestion(){
+    radiosContainer.classList.remove("hide");
+    checkboxContainer.classList.add("hide");
     questionText.innerText = geographyQuestions[questionCounter].question; 
     labelOne.innerText = geographyQuestions[questionCounter].answers.a;
     answerOne.value = geographyQuestions[questionCounter].answers.a;
@@ -125,9 +164,23 @@ function startGame(){
     answerThree.value = geographyQuestions[questionCounter].answers.c;
 }
 
+function showCheckBoxQuestion(){
+    checkboxContainer.classList.remove("hide");
+    radiosContainer.classList.add("hide")
+    questionText.innerText = geographyQuestions[questionCounter].question;
+    labelFour.innerText = geographyQuestions[questionCounter].answers.a;
+    answerFour.value = geographyQuestions[questionCounter].answers.a; 
+    labelFive.innerText = geographyQuestions[questionCounter].answers.b;
+    answerFive.value = geographyQuestions[questionCounter].answers.b; 
+    labelSix.innerText = geographyQuestions[questionCounter].answers.c;
+    answerSix.value = geographyQuestions[questionCounter].answers.c; 
+    labelSeven.innerText = geographyQuestions[questionCounter].answers.d;
+    answerSeven.value = geographyQuestions[questionCounter].answers.d; 
+}
+
 function nextQuestion (){
 
-    if (answerOne.checked == false && answerTwo.checked == false && answerThree.checked == false){
+    if (answerOne.checked == false && answerTwo.checked == false && answerThree.checked == false && answerFour.checked == false && answerFive.checked == false && answerSix.checked == false && answerSeven.checked == false){
 
         errorMessage.innerText = "Please answer the question";
         errorMessage.style.color = "red";
@@ -135,44 +188,68 @@ function nextQuestion (){
     } else {
 
         errorMessage.innerText = "";
+        let arrayWithinArray = [];
 
-        if (questionCounter == (geographyQuestions.length -1)){
-
-            [answerOne, answerTwo, answerThree].forEach((answer) =>{
+        if (questionCounter == (geographyQuestions.length -1)){ // checks if last question
+            let arrayWithinArray = [];
+            [answerOne, answerTwo, answerThree, answerFour, answerFive, answerSix, answerSeven].forEach((answer) =>{
                 if (answer.checked == true){
-                    answersArray.push(answer.value);
+                    arrayWithinArray.push(answer.value);
                     answer.checked = false;
                 }
-            })
+            }); answersArray.push(arrayWithinArray);
 
             questionContainer.classList.add("hide");
             checkResultsButton.classList.remove("hide");
-            console.log(answersArray);
 
         } else {
-
-            [answerOne, answerTwo, answerThree].forEach((answer) =>{
+            [answerOne, answerTwo, answerThree, answerFour, answerFive, answerSix, answerSeven].forEach((answer) =>{
                 if (answer.checked == true){
-                    answersArray.push(answer.value);
+                    arrayWithinArray.push(answer.value);
                     answer.checked = false;
-                }
-            })
-        
-            questionCounter++;
-            questionText.innerText = geographyQuestions[questionCounter].question; 
-            labelOne.innerText = geographyQuestions[questionCounter].answers.a;
-            answerOne.value = geographyQuestions[questionCounter].answers.a;
-            labelTwo.innerText = geographyQuestions[questionCounter].answers.b;
-            answerTwo.value = geographyQuestions[questionCounter].answers.b;
-            labelThree.innerText = geographyQuestions[questionCounter].answers.c;
-            answerThree.value = geographyQuestions[questionCounter].answers.c;
-            console.log(answersArray);
+                } 
+            }); answersArray.push(arrayWithinArray);
+
+            if (geographyQuestions[questionCounter+1].type == "radio"){
+
+                questionCounter++;
+                showRadioQuestion();
+
+            } else if (geographyQuestions[questionCounter+1].type == "checkbox") {
+                [answerOne, answerTwo, answerThree, answerFour, answerFive, answerSix, answerSeven].forEach((answer) =>{
+                    if (answer.checked == true){
+                        arrayWithinArray.push(answer.value);
+                        answer.checked = false;
+                    }
+                }); 
+            
+                questionCounter++;
+                showCheckBoxQuestion();
+            }
         }
-    }
+    } console.log(answersArray);
 }
 
 function checkResults(){
 
+    let score = 0;
+
+    correctAnswers.forEach((ans, index) => {
+        if (ans.toString() == answersArray[index].toString()){
+            score++;
+        }
+    })
+
+    checkResultsButton.classList.add("hide");
+    scoreContainer.append(`You got ${score} out of ${geographyQuestions.length} questions correct`);
+
+    if (score > 7){
+        scoreContainer.style.color = "green";
+    } else if (score > 5){
+        scoreContainer.style.color = "orange";
+    } else {
+        scoreContainer.style.color = "red";
+    }
 }
 
 function changeMode(){
@@ -191,3 +268,4 @@ function changeMode(){
 startButton.addEventListener("click", startGame);
 nextButton.addEventListener("click", nextQuestion);
 darkLightButton.addEventListener("click", changeMode);
+checkResultsButton.addEventListener("click", checkResults);
