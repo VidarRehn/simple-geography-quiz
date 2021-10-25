@@ -8,9 +8,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Geography Quiz</h1>
-    <button id="dark-light-btn">Change mode</button><br>
+    <div id="header">
+    <h3>Geography Quiz</h3>
+    <h5>- By Vidar Rehn -</h5>
+    <button id="dark-light-btn">Dark mode</button><br>
+    </div>
+</div>
     <div id="container">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>  
+        <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_izy5ndvp.json"  background="transparent"  speed="0.1" loop  autoplay></lottie-player>
         <div id="question-container" class="hide">
             <div id="question-txt"></div>
             <div id="answers-container">
@@ -43,7 +49,10 @@
         </div>
         <div>
             <button id="results-btn" class="hide">Check Results</button>
-            <div id="score"></div>
+            <div id="score" class="hide"></div>
+            <div>
+                <button id="restart-btn" class="hide">Restart Quiz</button>
+            </div>
         </div>
     </div>
 

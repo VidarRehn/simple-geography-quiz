@@ -100,14 +100,13 @@ geographyQuestions.forEach((q) => {
     correctAnswers.push(q.correctAnswer);
 })
 
-console.log(correctAnswers);
-
 // Declaring variables from DOM
 
 let myBody = document.querySelector("body");
 myBody.style.background = "white";
 myBody.style.color = "black";
 
+let myHeader = document.querySelector("#header");
 let questionContainer = document.querySelector("#question-container");
 let questionText = document.querySelector("#question-txt");
 let answersContainer = document.querySelector("#answers-container");
@@ -134,6 +133,7 @@ let startButton = document.querySelector("#start-btn");
 let nextButton = document.querySelector("#next-btn");
 let checkResultsButton = document.querySelector("#results-btn");
 let darkLightButton = document.querySelector("#dark-light-btn");
+let restartButton = document.querySelector("#restart-btn");
 
 let errorMessage = document.querySelector("#error-msg");
 let answersArray = [];
@@ -227,7 +227,7 @@ function nextQuestion (){
                 showCheckBoxQuestion();
             }
         }
-    } console.log(answersArray);
+    }
 }
 
 function checkResults(){
@@ -241,7 +241,9 @@ function checkResults(){
     })
 
     checkResultsButton.classList.add("hide");
-    scoreContainer.append(`You got ${score} out of ${geographyQuestions.length} questions correct`);
+    scoreContainer.classList.remove("hide");
+    let message = `You got ${score} out of ${geographyQuestions.length} questions correct`;
+    scoreContainer.append(message);
 
     if (score > 7){
         scoreContainer.style.color = "green";
@@ -250,17 +252,44 @@ function checkResults(){
     } else {
         scoreContainer.style.color = "red";
     }
+
+    restartButton.classList.remove("hide");
 }
 
 function changeMode(){
 
         if (myBody.style.background === "white"){
             myBody.style.background = "black";
-            myBody.style.color = "white";
+            myHeader.style.color = "white";
+            darkLightButton.innerText = "Light Mode";
+            questionContainer.style.boxShadow = "0px 0 20px 4px white";
+            questionContainer.style.background = "black";
+            questionContainer.style.color = "white";
+            scoreContainer.style.boxShadow = "0px 0 20px 4px white";
+            scoreContainer.style.background = "black";
+            scoreContainer.style.color = "white";
         } else {
             myBody.style.background = "white";
-            myBody.style.color = "black";
+            myHeader.style.color = "black";
+            darkLightButton.innerText = "Dark Mode"
+            questionContainer.style.boxShadow = "0px 0 20px 4px black";
+            questionContainer.style.background = "white";
+            questionContainer.style.color = "black";
+            scoreContainer.style.boxShadow = "0px 0 20px 4px black";
+            scoreContainer.style.background = "white";
+            scoreContainer.style.color = "black";
         }
+}
+
+function restartGame(){
+    restartButton.classList.add("hide");
+    answersArray = [];
+    scoreContainer.classList.add("hide");
+    startButton.classList.remove("hide");
+    questionCounter = 0;
+    scoreContainer.innerHTML = "";
+
+    startGame();
 }
 
 // Adding Event Listeners
@@ -269,3 +298,11 @@ startButton.addEventListener("click", startGame);
 nextButton.addEventListener("click", nextQuestion);
 darkLightButton.addEventListener("click", changeMode);
 checkResultsButton.addEventListener("click", checkResults);
+restartButton.addEventListener("click", restartGame);
+
+
+// possible adds:
+// results per question
+// restart game
+// fix CSS and dark/light mode
+// comment code better
