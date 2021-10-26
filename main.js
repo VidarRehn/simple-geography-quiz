@@ -112,6 +112,7 @@ let questionText = document.querySelector("#question-txt");
 let answersContainer = document.querySelector("#answers-container");
 let checkboxContainer = document.querySelector("#checkboxes");
 let radiosContainer = document.querySelector("#radios");
+let scoresheetContainer = document.querySelector("#scoresheet");
 
 let labelOne = document.querySelector("#label-1");
 let labelTwo = document.querySelector("#label-2");
@@ -134,6 +135,7 @@ let nextButton = document.querySelector("#next-btn");
 let checkResultsButton = document.querySelector("#results-btn");
 let darkLightButton = document.querySelector("#dark-light-btn");
 let restartButton = document.querySelector("#restart-btn");
+let seeScoresheetButton = document.querySelector("#scoresheet-btn")
 
 let errorMessage = document.querySelector("#error-msg");
 let answersArray = [];
@@ -254,6 +256,7 @@ function checkResults(){
     }
 
     restartButton.classList.remove("hide");
+    seeScoresheetButton.classList.remove("hide");
 }
 
 function changeMode(){
@@ -268,6 +271,7 @@ function changeMode(){
             scoreContainer.style.boxShadow = "0px 0 20px 4px white";
             scoreContainer.style.background = "black";
             scoreContainer.style.color = "white";
+            scoresheetContainer.style.color = "white";
         } else {
             myBody.style.background = "white";
             myHeader.style.color = "black";
@@ -278,6 +282,7 @@ function changeMode(){
             scoreContainer.style.boxShadow = "0px 0 20px 4px black";
             scoreContainer.style.background = "white";
             scoreContainer.style.color = "black";
+            scoresheetContainer.style.color = "black";
         }
 }
 
@@ -288,9 +293,33 @@ function restartGame(){
     startButton.classList.remove("hide");
     questionCounter = 0;
     scoreContainer.innerHTML = "";
+    scoresheetContainer.innerHTML = "";
+    seeScoresheetButton.classList.add("hide");
 
     startGame();
 }
+
+function seeScoresheet(){
+    geographyQuestions.forEach((q, index) => {
+        let question = document.createElement("h4");
+        let yourAnswer = document.createElement("p");
+        let rightAnswer = document.createElement("p");
+        question.innerText = q.question;
+        yourAnswer.innerText = `You answered ${answersArray[index]}`;
+        rightAnswer.innerText = `The correct answer is ${correctAnswers[index]}`;
+        rightAnswer.classList.add("last");
+        scoresheetContainer.append(question);
+        scoresheetContainer.append(yourAnswer);
+        scoresheetContainer.append(rightAnswer);
+
+        if ((answersArray[index].toString()) === (correctAnswers[index].toString())){
+            yourAnswer.style.color = "green";
+        } else {
+            yourAnswer.style.color = "red";
+        }
+    })
+}
+
 
 // Adding Event Listeners
 
@@ -299,10 +328,4 @@ nextButton.addEventListener("click", nextQuestion);
 darkLightButton.addEventListener("click", changeMode);
 checkResultsButton.addEventListener("click", checkResults);
 restartButton.addEventListener("click", restartGame);
-
-
-// possible adds:
-// results per question
-// restart game
-// fix CSS and dark/light mode
-// comment code better
+seeScoresheetButton.addEventListener("click", seeScoresheet);

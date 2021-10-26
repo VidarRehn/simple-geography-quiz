@@ -27,8 +27,22 @@ button:hover {
 
 }
 
+#scoresheet-btn {
+    height: 8%;
+    width: 20%;
+    position: absolute;
+    top: 20%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    border-radius: 10px 10px;
+    font-size: 1.5vw;
+}
+
 #question-container, #score {
-    height: 25%;
+    height: 30%;
     width: 50%;
     background: white;
     opacity: 0.8;
@@ -88,4 +102,12 @@ label {
 
 #next-btn {
     margin-top: 10%;
+}
+
+.last {
+    margin-bottom: 15px;
+}
+
+#scoresheet {
+    margin-top: -12%;
 }
