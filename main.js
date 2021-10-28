@@ -300,6 +300,7 @@ function restartGame(){
 }
 
 function seeScoresheet(){
+    scoresheetContainer.innerHTML = "";
     geographyQuestions.forEach((q, index) => {
         let question = document.createElement("h4");
         let yourAnswer = document.createElement("p");
@@ -318,6 +319,7 @@ function seeScoresheet(){
             yourAnswer.style.color = "red";
         }
     })
+    window.location.href = "#scoresheet";
 }
 
 
